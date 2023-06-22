@@ -1,0 +1,21 @@
+# General
+python-version
+__pycache__
+.vscode
+.mypy_cache
+.pytest_cache
+.ruff_cache
+.ipynb_checkpoints
+logs
+TODO.md
+.venv
+debug.log
+
+# Project specific
+pic
+seed
+seed_goal
+lightning_logs
+
+# For my own testing
+dummy.ipynb
