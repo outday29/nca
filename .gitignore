@@ -1,5 +1,5 @@
 # General
-python-version
+.python-version
 __pycache__
 .vscode
 .mypy_cache
