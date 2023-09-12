@@ -31,7 +31,7 @@ class NCALightningModule(pl.LightningModule):
     pass
   
   def configure_optimizers(self):
-    return torch.optim.Adam(self.parameters(), lr=0.02)
+    return torch.optim.Adam(self.parameters(), lr=0.0005)
   
   def get_num_generator(self):
     for i in itertools.count():

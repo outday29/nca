@@ -5,3 +5,4 @@ einops
 moviepy
 jupyterlab
 matplotlib
+tensorboard
