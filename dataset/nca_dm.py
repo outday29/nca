@@ -10,7 +10,7 @@ import random
 import torch
 
 from .utils import generate_initial_seed
-from utils import load_image
+from ..utils import load_image
 
 class NCADatasetBase(Dataset):
   def __init__(self, target_image_path, seed_cache_dir, grid_size, num_hidden_channels, num_static_channels, num_target_channels, dataset_size=64, clear_cache=False):

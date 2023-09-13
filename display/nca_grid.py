@@ -3,7 +3,7 @@ from einops import rearrange
 import matplotlib.pyplot as plt
 import torch
 
-from utils import VideoWriter
+from ..utils import VideoWriter
 
 class NCAGrid(object):
   def __init__(self, seed, num_target_channels, num_static_channels, num_hidden_channels, model=None):
