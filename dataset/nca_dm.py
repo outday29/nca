@@ -13,7 +13,7 @@ from .utils import generate_initial_seed
 from ..utils import load_image
 
 class NCADatasetBase(Dataset):
-  def __init__(self, target_image_path, seed_cache_dir, grid_size, num_hidden_channels, num_static_channels, num_target_channels, dataset_size=64, clear_cache=False):
+  def __init__(self, target_image_path, seed_cache_dir, grid_size, num_hidden_channels, num_static_channels, num_target_channels, dataset_size=64, clear_cache=False, device="cuda"):
       self.target_image_path = target_image_path
       self.seed_cache_dir = seed_cache_dir
       self.num_hidden_channels = num_hidden_channels
@@ -21,6 +21,7 @@ class NCADatasetBase(Dataset):
       self.num_target_channels = num_target_channels
       self.grid_size = grid_size
       self.dataset_size = dataset_size
+      self.device = device
 
       if clear_cache:
           self.clear_cache
@@ -54,7 +55,7 @@ class NCADatasetBase(Dataset):
 
     seed_path = random.choice(cached_seed)
     seed = torch.load(seed_path)
-    return seed
+    return seed.to(self.device)
   
   def get_alive_mask(self, x):
       # x dimension is (batch_size, num_channels, width, height)
@@ -142,7 +143,7 @@ class NCADatasetBase(Dataset):
   #   return target_image
 
 class NCADataset(NCADatasetBase):
-  def __init__(self, target_image_path, seed_cache_dir, grid_size, num_hidden_channels, num_static_channels, num_target_channels, thumbnail_size, dataset_size=64, clear_cache=False):
+  def __init__(self, target_image_path, seed_cache_dir, grid_size, num_hidden_channels, num_static_channels, num_target_channels, thumbnail_size, dataset_size=64, clear_cache=False, device="cuda"):
     super().__init__(target_image_path=target_image_path, 
                      seed_cache_dir=seed_cache_dir, 
                      grid_size=grid_size, 
@@ -150,7 +151,8 @@ class NCADataset(NCADatasetBase):
                      num_static_channels=num_static_channels, 
                      num_target_channels=num_target_channels, 
                      dataset_size=dataset_size, 
-                     clear_cache=clear_cache)
+                     clear_cache=clear_cache,
+                     device=device)
     self.thumbnail_size = thumbnail_size
     self.target_image_processed = load_image(self.target_image_path, size=self.grid_size[0], thumbnail_size=thumbnail_size)
   
@@ -229,7 +231,7 @@ class GoalNCADataset(NCADatasetBase):
 
     seed_path = random.choice(cached_seed)
     seed = torch.load(seed_path)
-    return seed
+    return seed.to(self.device)
 
   def __len__(self):
     return self.dataset_size
@@ -246,6 +248,7 @@ class GoalNCADataset(NCADatasetBase):
             num_static_channels=self.num_static_channels,
             num_target_channels=self.num_target_channels
         )
+        new_seed = new_seed.to(self.device)
         # goal_idx_channel = torch.ones(self.num_static_channels, self.grid_size[0], self.grid_size[1]) * torch.tensor(goal_idx)
         self.set_static_channel(new_seed, goal_idx)
         target_image = self.processed_target_image[goal_idx]
@@ -263,6 +266,7 @@ class GoalNCADataset(NCADatasetBase):
           num_static_channels=self.num_static_channels,
           num_target_channels=self.num_target_channels
       )
+      new_seed = new_seed.to(self.device)
       # goal_idx_channel = torch.ones(self.num_static_channels, self.grid_size[0], self.grid_size[1]) * torch.tensor(goal_idx)
       self.set_static_channel(new_seed, goal_idx)
       target_image = self.processed_target_image[goal_idx]
