@@ -3,6 +3,5 @@ torch
 torchvision
 einops
 moviepy
-jupyterlab
 matplotlib
 tensorboard
