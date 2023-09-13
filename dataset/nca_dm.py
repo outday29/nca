@@ -187,7 +187,7 @@ class NCADataset(NCADatasetBase):
         return (new_seed, self.target_image_processed.to(self.device))
 
 class GoalNCADataset(NCADatasetBase):
-  def __init__(self, target_image_path, seed_cache_dir, grid_size, num_hidden_channels, num_static_channels, num_target_channels, thumbnail_size, dataset_size=64, clear_cache=False):
+  def __init__(self, target_image_path, seed_cache_dir, grid_size, num_hidden_channels, num_static_channels, num_target_channels, thumbnail_size, dataset_size=64, clear_cache=False, device="cuda"):
     super().__init__(target_image_path=target_image_path, 
                     seed_cache_dir=seed_cache_dir, 
                     grid_size=grid_size, 
@@ -195,7 +195,8 @@ class GoalNCADataset(NCADatasetBase):
                     num_static_channels=num_static_channels, 
                     num_target_channels=num_target_channels, 
                     dataset_size=dataset_size, 
-                    clear_cache=clear_cache)
+                    clear_cache=clear_cache,
+                    device=device)
 
     self.num_goal = len(self.target_image_path)
     self.thumbnail_size = thumbnail_size
@@ -251,12 +252,12 @@ class GoalNCADataset(NCADatasetBase):
         new_seed = new_seed.to(self.device)
         # goal_idx_channel = torch.ones(self.num_static_channels, self.grid_size[0], self.grid_size[1]) * torch.tensor(goal_idx)
         self.set_static_channel(new_seed, goal_idx)
-        target_image = self.processed_target_image[goal_idx]
+        target_image = self.processed_target_image[goal_idx].to(self.device)
         return (new_seed, target_image)
       
       else:
         seed = self.get_random_seed_cache(goal_idx)
-        target_image = self.processed_target_image[goal_idx]
+        target_image = self.processed_target_image[goal_idx].to(self.device)
         return (seed, target_image)
   
     else:
@@ -269,7 +270,7 @@ class GoalNCADataset(NCADatasetBase):
       new_seed = new_seed.to(self.device)
       # goal_idx_channel = torch.ones(self.num_static_channels, self.grid_size[0], self.grid_size[1]) * torch.tensor(goal_idx)
       self.set_static_channel(new_seed, goal_idx)
-      target_image = self.processed_target_image[goal_idx]
+      target_image = self.processed_target_image[goal_idx].to(self.device)
       return (new_seed, target_image)
 
 
