@@ -169,12 +169,12 @@ class NCADataset(NCADatasetBase):
             num_hidden_channels=self.num_hidden_channels,
             num_static_channels=self.num_static_channels,
             num_target_channels=self.num_target_channels
-        )
+        ).to(self.device)
 
-        return (new_seed, self.target_image_processed)
+        return (new_seed, self.target_image_processed.to(self.device))
       
       else:
-        return (self.get_random_seed_cache(), self.target_image_processed)
+        return (self.get_random_seed_cache().to(self.device), self.target_image_processed.to(self.device))
     
     else:
         new_seed = generate_initial_seed(
@@ -182,9 +182,9 @@ class NCADataset(NCADatasetBase):
             num_hidden_channels=self.num_hidden_channels,
             num_static_channels=self.num_static_channels,
             num_target_channels=self.num_target_channels
-        )
+        ).to(self.device)
 
-        return (new_seed, self.target_image_processed)
+        return (new_seed, self.target_image_processed.to(self.device))
 
 class GoalNCADataset(NCADatasetBase):
   def __init__(self, target_image_path, seed_cache_dir, grid_size, num_hidden_channels, num_static_channels, num_target_channels, thumbnail_size, dataset_size=64, clear_cache=False):
@@ -283,6 +283,7 @@ class NCADataModule(pl.LightningDataModule):
                target_image_path,
                batch_size,
                thumbnail_size,
+               dataset_size,
                clear_cache=False):
     super().__init__()
     self.target_image_path = target_image_path
@@ -294,6 +295,7 @@ class NCADataModule(pl.LightningDataModule):
                              num_target_channels=num_target_channels,
                              num_static_channels=num_static_channels,
                              thumbnail_size=thumbnail_size,
+                             dataset_size=dataset_size
                              clear_cache=clear_cache)
   
   def train_dataloader(self):
@@ -310,6 +312,7 @@ class GoalNCADataModule(pl.LightningDataModule):
                target_image_path,
                batch_size,
                thumbnail_size,
+               dataset_size,
                clear_cache=False):
     super().__init__()
     self.target_image_path = target_image_path
@@ -321,6 +324,7 @@ class GoalNCADataModule(pl.LightningDataModule):
                                 num_target_channels=num_target_channels,
                                 num_static_channels=num_static_channels,
                                 thumbnail_size=thumbnail_size,
+                                dataset_size=dataset_size
                                 clear_cache=clear_cache)
   
   def train_dataloader(self):
