@@ -324,7 +324,7 @@ class GoalNCADataModule(pl.LightningDataModule):
                                 num_target_channels=num_target_channels,
                                 num_static_channels=num_static_channels,
                                 thumbnail_size=thumbnail_size,
-                                dataset_size=dataset_size
+                                dataset_size=dataset_size,
                                 clear_cache=clear_cache)
   
   def train_dataloader(self):
