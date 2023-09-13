@@ -4,7 +4,7 @@ import itertools
 import torch
 
 class NCALightningModule(pl.LightningModule):
-  def __init__(self, model, train_step, seed_cache_dir, seed_cache_size):
+  def __init__(self, model, train_step, seed_cache_dir, seed_cache_size, lr = 0.0005):
     super().__init__()
     self.model = model # The model must be stored in self.model, callbacks depend on that
     self.loss = nn.MSELoss()
@@ -12,6 +12,7 @@ class NCALightningModule(pl.LightningModule):
     self.seed_cache_dir = seed_cache_dir
     self.seed_cache_size = seed_cache_size
     self.num_gen = iter(self.get_num_generator())
+    self.lr = lr
     self.save_hyperparameters()
 
   def training_step(self, batch, batch_idx):
@@ -31,7 +32,7 @@ class NCALightningModule(pl.LightningModule):
     pass
   
   def configure_optimizers(self):
-    return torch.optim.Adam(self.parameters(), lr=0.0005)
+    return torch.optim.Adam(self.parameters(), lr=self.lr)
   
   def get_num_generator(self):
     for i in itertools.count():
