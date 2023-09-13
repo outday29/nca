@@ -80,6 +80,7 @@ class NCA(nn.Module):
                 num_static_channels=0,
                 use_alive_channel=True,
                 stochastic=True,
+                device="cuda"
                 ):
         
         """
@@ -119,7 +120,7 @@ class NCA(nn.Module):
         return (
                 torch.clamp(torch.rand_like(x[:, 0:1], device=x.device), 0.0, 1.0).float()
                 < torch.tensor(self.cell_fire_rate)
-        )
+        ).to(self.device)
     
     def get_alive_mask(self, x):
         # x dimension is (batch_size, num_channels, width, height)
@@ -135,7 +136,7 @@ class NCA(nn.Module):
                         padding=1,
                 )
                 > self.alive_threshold
-        )
+        ).to(self.device)
 
     def get_alive_channel(self, x):
         alive_channel = x[:, 0:1, :, :]
