@@ -2,6 +2,6 @@ pytorch-lightning<2.0.0
 torch
 torchvision
 einops
-moviepy
 matplotlib
 tensorboard
+av

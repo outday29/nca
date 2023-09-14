@@ -12,4 +12,5 @@ def generate_initial_seed(grid_size, num_target_channels, num_hidden_channels, n
     # Set the center seed to be alive
     seed[0, grid_size[0] // 2, grid_size[1] // 2] = 1.0  # Set alive channel to one
     seed[(total_channels - num_hidden_channels):, grid_size[0] // 2, grid_size[1] // 2] = 1.0 # Still need to investigate this
+    seed[1: num_target_channels + 1, :, :] = 1.0
     return seed

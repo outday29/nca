@@ -121,7 +121,6 @@ class VisualizeBestSeed(Callback):
         # Target now has an additional alpha channel, we do not need that, alpha channel is the last channel
         target = self.target[0:3, :, :]
         img = torch.cat([best_seed_target_channel, target], dim=2)
-        # img = einops.rearrange(img, 'c h w -> w h c')
         img = torch.clamp(img, min=0, max=1)
         img = img.unsqueeze(dim=0)
         self.tensorboard.add_images(self.details, img, global_step=pl_module.current_epoch)
