@@ -83,7 +83,8 @@ class NCAGrid(object):
   def generate_initial_seed(self, grid_size, 
                             num_target_channels, 
                             num_hidden_channels, 
-                            num_static_channels):
+                            num_static_channels,
+                            white_background=False):
     total_channels = num_target_channels + num_hidden_channels + num_static_channels + 1
     seed = torch.zeros(
         total_channels,
@@ -92,5 +93,6 @@ class NCAGrid(object):
     # Set the center seed to be alive
     seed[0, grid_size[0] // 2, grid_size[1] // 2] = 1.0  # Set alive channel to one
     seed[total_channels - num_hidden_channels:, grid_size[0] // 2, grid_size[1] // 2] = 1.0 # Set all hidden channels to 1
-    seed[1: num_target_channels + 1, :, :] = 1.0 # Set all hidden channels to 1
+    if white_background:
+      seed[1: num_target_channels + 1, :, :] = 1.0 # Set all hidden channels to 1
     return seed

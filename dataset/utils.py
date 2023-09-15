@@ -1,6 +1,6 @@
 import torch
 
-def generate_initial_seed(grid_size, num_target_channels, num_hidden_channels, num_static_channels):
+def generate_initial_seed(grid_size, num_target_channels, num_hidden_channels, num_static_channels, white_background = False):
 # The user may want to define initial seeds, such as in https://colab.research.google.com/drive/1vG7yjOHxejdk_YfvKhASanNs0YvKDO5-#scrollTo=aQqUWJwwAK5r
     assert len(grid_size) == 2
 
@@ -12,5 +12,7 @@ def generate_initial_seed(grid_size, num_target_channels, num_hidden_channels, n
     # Set the center seed to be alive
     seed[0, grid_size[0] // 2, grid_size[1] // 2] = 1.0  # Set alive channel to one
     seed[(total_channels - num_hidden_channels):, grid_size[0] // 2, grid_size[1] // 2] = 1.0 # Still need to investigate this
-    seed[1: num_target_channels + 1, :, :] = 1.0
+    if white_background:
+        seed[1: num_target_channels + 1, :, :] = 1.0
+    
     return seed
