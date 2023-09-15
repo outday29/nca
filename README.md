@@ -2,6 +2,8 @@
 
 This is a reproduction of implementation of [Growing Neural Cellular Automata](https://research.google/pubs/pub48963/) by Mordvintsev et al., 2020 and [Goal-Guided Neural Celluar Automata: Learning to Control Self-Organising Systems](https://arxiv.org/abs/2205.06806) by Sudhakaran et al., 2022 using Pytorch and Pytorch Lightning.
 
+<img src="data/test.gif" width="400" height="400">
+
 ## Usage
 
 ### Setup
