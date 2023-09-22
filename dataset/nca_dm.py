@@ -143,7 +143,7 @@ class NCADatasetBase(Dataset):
   #   return target_image
 
 class NCADataset(NCADatasetBase):
-  def __init__(self, target_image_path, seed_cache_dir, grid_size, num_hidden_channels, num_static_channels, num_target_channels, thumbnail_size, dataset_size=64, clear_cache=False, device="cuda"):
+  def __init__(self, target_image_path, seed_cache_dir, grid_size, num_hidden_channels, num_static_channels, num_target_channels, thumbnail_size, dataset_size=64, clear_cache=False, device="cuda", use_cache_p = 0.8):
     super().__init__(target_image_path=target_image_path, 
                      seed_cache_dir=seed_cache_dir, 
                      grid_size=grid_size, 
@@ -154,6 +154,7 @@ class NCADataset(NCADatasetBase):
                      clear_cache=clear_cache,
                      device=device)
     self.thumbnail_size = thumbnail_size
+    self.use_cache_p = use_cache_p
     self.target_image_processed = load_image(self.target_image_path, size=self.grid_size[0], thumbnail_size=thumbnail_size)
   
   def __len__(self):
@@ -162,7 +163,7 @@ class NCADataset(NCADatasetBase):
   def __getitem__(self, idx):
     # Since this is only 1 image, we do not need to organize into folder
     
-    if random.random() > 0.2:
+    if random.random() < self.use_cache_p:
       if self.cache_is_empty():
         new_seed = generate_initial_seed(
             grid_size=self.grid_size,
@@ -187,7 +188,7 @@ class NCADataset(NCADatasetBase):
         return (new_seed, self.target_image_processed.to(self.device))
 
 class GoalNCADataset(NCADatasetBase):
-  def __init__(self, target_image_path, seed_cache_dir, grid_size, num_hidden_channels, num_static_channels, num_target_channels, thumbnail_size, dataset_size=64, clear_cache=False, device="cuda"):
+  def __init__(self, target_image_path, seed_cache_dir, grid_size, num_hidden_channels, num_static_channels, num_target_channels, thumbnail_size, dataset_size=64, clear_cache=False, device="cuda", use_cache_p = 0.8):
     super().__init__(target_image_path=target_image_path, 
                     seed_cache_dir=seed_cache_dir, 
                     grid_size=grid_size, 
@@ -200,6 +201,7 @@ class GoalNCADataset(NCADatasetBase):
 
     self.num_goal = len(self.target_image_path)
     self.thumbnail_size = thumbnail_size
+    self.use_cache_p = use_cache_p
     self.create_cache_dir()
     self.preprocess()
     
@@ -241,7 +243,7 @@ class GoalNCADataset(NCADatasetBase):
     # First select goal
     goal_idx = random.randint(0, self.num_goal - 1)
     # The cache dir will be organized like self.cache_dir/goal_{goal_idx}
-    if random.random() > 0.2:
+    if random.random() < self.use_cache_p:
       if self.cache_is_empty(goal_idx):
         new_seed = generate_initial_seed(
             grid_size=self.grid_size,
@@ -285,6 +287,7 @@ class NCADataModule(pl.LightningDataModule):
                batch_size,
                thumbnail_size,
                dataset_size,
+               use_cache_p=0.8,
                clear_cache=False):
     super().__init__()
     self.target_image_path = target_image_path
@@ -297,7 +300,8 @@ class NCADataModule(pl.LightningDataModule):
                               num_static_channels=num_static_channels,
                               thumbnail_size=thumbnail_size,
                               dataset_size=dataset_size,
-                              clear_cache=clear_cache)
+                              clear_cache=clear_cache,
+                              use_cache_p=use_cache_p)
   
   def train_dataloader(self):
     return DataLoader(self.dataset, batch_size=self.batch_size, shuffle=True)
@@ -314,6 +318,7 @@ class GoalNCADataModule(pl.LightningDataModule):
                batch_size,
                thumbnail_size,
                dataset_size,
+               use_cache_p=0.8,
                clear_cache=False):
     super().__init__()
     self.target_image_path = target_image_path
@@ -326,6 +331,7 @@ class GoalNCADataModule(pl.LightningDataModule):
                                   num_static_channels=num_static_channels,
                                   thumbnail_size=thumbnail_size,
                                   dataset_size=dataset_size,
+                                  use_cache_p=use_cache_p,
                                   clear_cache=clear_cache)
   
   def train_dataloader(self):

@@ -2,7 +2,23 @@
 
 This is a reproduction of implementation of [Growing Neural Cellular Automata](https://research.google/pubs/pub48963/) by Mordvintsev et al., 2020 and [Goal-Guided Neural Celluar Automata: Learning to Control Self-Organising Systems](https://arxiv.org/abs/2205.06806) by Sudhakaran et al., 2022 using Pytorch and Pytorch Lightning.
 
-<img src="data/test.gif" width="400" height="400">
+### Target channels visualization
+
+<img src="data/city_demo.gif" width="100" height="100">
+<img src="data/dice_demo.gif" width="100" height="100">
+<img src="data/piano_demo.gif" width="100" height="100">
+
+### Alive channel visualization
+
+<img src="data/city_demo_alive.gif" width="100" height="100">
+<img src="data/dice_demo_alive.gif" width="100" height="100">
+<img src="data/piano_demo_alive.gif" width="100" height="100">
+
+### Monitoring training progress via Tensorboard
+
+You can visualize the best seed (seed with the best loss or most closely resembles the target image) for each step as well as test run of a random seed in Tensorboard.
+
+<img src="data/nca_tensorboard.gif">
 
 ## Usage
 
