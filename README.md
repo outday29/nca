@@ -7,12 +7,14 @@ This is a reproduction of implementation of [Growing Neural Cellular Automata](h
 <img src="data/city_demo.gif" width="100" height="100">
 <img src="data/dice_demo.gif" width="100" height="100">
 <img src="data/piano_demo.gif" width="100" height="100">
+<img src="data/rugby_demo.gif" width="100" height="100">
 
 ### Alive channel visualization
 
 <img src="data/city_demo_alive.gif" width="100" height="100">
 <img src="data/dice_demo_alive.gif" width="100" height="100">
 <img src="data/piano_demo_alive.gif" width="100" height="100">
+<img src="data/rugby_demo_alive.gif" width="100" height="100">
 
 ### Monitoring training progress via Tensorboard
 
