@@ -3,18 +3,21 @@
 This is a reproduction of implementation of [Growing Neural Cellular Automata](https://research.google/pubs/pub48963/) by Mordvintsev et al., 2020 and [Goal-Guided Neural Celluar Automata: Learning to Control Self-Organising Systems](https://arxiv.org/abs/2205.06806) by Sudhakaran et al., 2022 using Pytorch and Pytorch Lightning.
 
 ### Target channels visualization
-
-<img src="data/city_demo.gif" width="100" height="100">
-<img src="data/dice_demo.gif" width="100" height="100">
-<img src="data/piano_demo.gif" width="100" height="100">
-<img src="data/rugby_demo.gif" width="100" height="100">
+<div style="display: flex; flex-direction: row;">
+  <img src="data/city_demo.gif" width="100" height="100">
+  <img src="data/dice_demo.gif" width="100" height="100">
+  <img src="data/piano_demo.gif" width="100" height="100">
+  <img src="data/rugby_demo.gif" width="100" height="100">
+</div>
 
 ### Alive channel visualization
 
-<img src="data/city_demo_alive.gif" width="100" height="100">
-<img src="data/dice_demo_alive.gif" width="100" height="100">
-<img src="data/piano_demo_alive.gif" width="100" height="100">
-<img src="data/rugby_demo_alive.gif" width="100" height="100">
+<div style="display: flex; flex-direction: row;">
+  <img src="data/city_demo_alive.gif" width="100" height="100">
+  <img src="data/dice_demo_alive.gif" width="100" height="100">
+  <img src="data/piano_demo_alive.gif" width="100" height="100">
+  <img src="data/rugby_demo_alive.gif" width="100" height="100">
+</div>
 
 ### Monitoring training progress via Tensorboard
 
