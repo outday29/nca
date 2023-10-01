@@ -1,6 +1,6 @@
 ## Overview
 
-This is a reproduction of implementation of [Growing Neural Cellular Automata](https://research.google/pubs/pub48963/) by Mordvintsev et al., 2020 and [Goal-Guided Neural Celluar Automata: Learning to Control Self-Organising Systems](https://arxiv.org/abs/2205.06806) by Sudhakaran et al., 2022 using Pytorch and Pytorch Lightning.
+This is a reproduction of [Growing Neural Cellular Automata](https://distill.pub/2020/growing-ca/) by Mordvintsev et al., 2020 and [Goal-Guided Neural Celluar Automata: Learning to Control Self-Organising Systems](https://arxiv.org/abs/2205.06806) by Sudhakaran et al., 2022 using Pytorch and Pytorch Lightning.
 
 ### Target channels visualization
 <div style="display: flex; flex-direction: row;">
@@ -53,3 +53,8 @@ Below are the notebooks that demonstrate how to train different neural cellular 
 
 - `growing_nca.ipynb` for NCA found in Growing Neural Cellular Automata (Mordvintsev et al., 2020)
 - `goal_nca.ipynb` for NCA found in Goal-Guided NCA (Sudhakaran et al., 2022)
+
+### References
+- https://github.com/shyamsn97/controllable-ncas
+- https://github.com/chenmingxiang110/Growing-Neural-Cellular-Automata
+- https://colab.research.google.com/github/google-research/self-organising-systems/blob/master/adversarial_reprogramming_ca/adversarial_growing_ca.ipynb#scrollTo=ByHbsY0EuyqB
