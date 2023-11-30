@@ -51,7 +51,7 @@ python download_dataset.py
 
 Below are the notebooks that demonstrate how to train different neural cellular automata:
 
-- `growing_nca.ipynb` for NCA found in Growing Neural Cellular Automata (Mordvintsev et al., 2020)
+- `growing_nca.ipynb` for NCA found in Growing Neural Cellular Automata (Mordvintsev et al., 2020). If you are running on Google Colab, you may refer to [here](https://colab.research.google.com/drive/1PjZvqySmcU-mzy9zenPnBFFhJqa6O-oO?usp=sharing).
 - (In progress) `goal_nca.ipynb` for NCA found in Goal-Guided NCA (Sudhakaran et al., 2022)
 
 ### References
